@@ -1,28 +1,44 @@
-import ollama
+import os
+from groq import Groq
+from dotenv import load_dotenv
 
+# Load environment variables
+load_dotenv()
+
+# API Key
+client = Groq(
+    api_key=os.getenv("GROQ_API_KEY")
+)
 
 def generate_answer(context, question, history=""):
 
     prompt = f"""
-You are a helpful AI assistant.
+You are an AI assistant for question-answering.
 
-Use the provided conversation history
-and document context to answer.
+Use the following context to answer the question.
 
-Rules:
-1. Use ONLY provided context.
-2. If answer is missing, say:
-   "I could not find the answer in the document."
-3. Understand follow-up questions from history.
-
-Conversation History:
-{history}
-
-Document Context:
+Context:
 {context}
 
-Current Question:
+Chat History:
+{history}
+
+Question:
 {question}
 
 Answer:
 """
+
+    response = client.chat.completions.create(
+        model="llama-3.3-70b-versatile",
+        messages=[
+            {
+                "role": "user",
+                "content": prompt
+            }
+        ],
+        temperature=0.3,
+        max_tokens=500
+    )
+
+    return response.choices[0].message.content

@@ -4,5 +4,6 @@ sentence-transformers
 qdrant-client
 pypdf
 python-multipart
+groq
+python-dotenv
 requests
-ollama

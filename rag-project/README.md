@@ -29,3 +29,15 @@ http://localhost:8501
 
 Backend:
 http://localhost:8001
+
+Frontend:
+
+http://localhost:8501
+
+Backend:
+
+http://localhost:8001/docs
+
+Qdrant:
+
+http://localhost:6333/dashboard
